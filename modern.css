@@ -37,6 +37,20 @@
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
+/* Kinetic Reveal Animations */
+.reveal-init {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: 
+        opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1),
+        transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* AI & Projects Section */
 .projects-grid {
     display: grid;

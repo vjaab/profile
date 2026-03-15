@@ -56,3 +56,66 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// --- MODERN ENHANCEMENTS 2026 ---
+
+// 1. Kinetic Scroll Reveals
+const revealOnScroll = () => {
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                // Optional: stop observing once revealed
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Targets for reveal
+    const revealTargets = [
+        '.section-header',
+        '.project-card',
+        '.service-card',
+        '.skill-category',
+        '.about-text'
+    ];
+
+    revealTargets.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+            el.classList.add('reveal-init');
+            observer.observe(el);
+        });
+    });
+};
+
+// 2. Magnetic Button Effect
+const initMagneticButtons = () => {
+    const magnets = document.querySelectorAll('.btn, .social-hero a, .footer-socials a');
+    
+    magnets.forEach((mag) => {
+        mag.addEventListener('mousemove', function(e) {
+            const bound = this.getBoundingClientRect();
+            const x = e.clientX - bound.left - bound.width / 2;
+            const y = e.clientY - bound.top - bound.height / 2;
+            
+            this.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+            this.style.transition = 'transform 0.1s ease-out';
+        });
+        
+        mag.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+            this.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+        });
+    });
+};
+
+// Initialize All
+document.addEventListener('DOMContentLoaded', () => {
+    revealOnScroll();
+    initMagneticButtons();
+});
